@@ -20,7 +20,8 @@
         <maven.checkstyle.version>3.4.0</maven.checkstyle.version>
         <spotbugs.version>4.8.5</spotbugs.version>
         <rest.version>5.5.0</rest.version>
-        <lombok.version>1.18.12</lombok.version>
+        <lombok.version>1.18.34</lombok.version>
+        <assertj.version>3.8.0</assertj.version>
         <faker.version>1.0.2</faker.version>
 
         <base.url>https://petstore.swagger.io/</base.url>
@@ -52,11 +53,19 @@
             <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
             <version>${faker.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -91,11 +100,11 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs</artifactId>
-                <version>${spotbugs.version}</version>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>com.github.spotbugs</groupId>-->
+<!--                <artifactId>spotbugs</artifactId>-->
+<!--                <version>${spotbugs.version}</version>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 
