@@ -55,7 +55,7 @@ public class PetTest {
         petDTO.setName(expectedName);
         petRestClient.update(petDTO, 200);
         PetDTO petUpdated = petRestClient.get(petDTO.getId());
-        assertThat(petUpdated.getName()).as("name was successfully updated").isEqualTo(expectedName);
+        assertThat(petUpdated.getName()).as("name wasn't successfully updated").isEqualTo(expectedName);
 
     }
 
