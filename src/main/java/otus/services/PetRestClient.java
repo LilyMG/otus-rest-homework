@@ -1,5 +1,6 @@
 package otus.services;
 
+import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Provides;
 import otus.dto.pet.PetDTO;
@@ -12,6 +13,20 @@ public class PetRestClient extends AbsBaseSpecs {
         requestSpecification.basePath("/pet");
     }
 
+    public void create(PetDTO petDTO) {
+        Gson gson = new Gson();
+        requestSpecification.
+                when().
+                header("accept", "application/json").
+                header("Content-Type", "application/json").
+                body(gson.toJson(petDTO)).
+                post().
+                then().
+                statusCode(200).
+                log().all();
+    }
+
+
     public void update(PetDTO petDTO, int expectedStatus) {
         requestSpecification.
                 when().
@@ -22,15 +37,6 @@ public class PetRestClient extends AbsBaseSpecs {
                 log().all();
     }
 
-    public void create(PetDTO petDTO) {
-        requestSpecification.
-                when().
-                log().all().
-                post("/").
-                then().
-                statusCode(200).
-                log().all();
-    }
 
     public PetDTO get(int id) {
         return requestSpecification.

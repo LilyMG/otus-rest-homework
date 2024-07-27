@@ -10,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import otus.dto.pet.PetDTO;
 import otus.dto.pet.Tag;
 import otus.extensions.ApiExtensions;
+import otus.extensions.ExtensionParameterResolver;
 import otus.modules.GuiceModule;
 import otus.services.PetRestClient;
 
@@ -19,16 +20,17 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(ApiExtensions.class)
+@ExtendWith(ExtensionParameterResolver.class)
 public class PetTest {
     private final Faker faker = new Faker();
+    private final Injector injector = Guice.createInjector(new GuiceModule());
     @Inject
-    private PetRestClient petRestClient;
+    private final PetRestClient petRestClient = injector.getInstance(PetRestClient.class);
 
     @Test
-    public void updatePetObject(ExtensionContext extensionContext) {
-
-        Injector injector = Guice.createInjector(new GuiceModule());
-        petRestClient = injector.getInstance(PetRestClient.class);
+    public void updatePetObject(ExtensionContext context) {
+        ExtensionContext.Store store = context.getStore(ExtensionContext.Namespace.create(PetDTO.class));
+        String value = store.get("petID", String.class);
 
         Tag tag = Tag.builder().
                 name(faker.animal().name()).
