@@ -1,12 +1,15 @@
 package otus.pet;
 
 import com.github.javafaker.Faker;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import otus.dto.pet.PetDTO;
 import otus.dto.pet.Tag;
 import otus.extensions.ApiExtensions;
+import otus.modules.GuiceModule;
 import otus.services.PetRestClient;
 
 import java.util.ArrayList;
@@ -23,7 +26,12 @@ public class PetTest {
     private PetRestClient petRestClient;
 
     @Test
-    public void updatePetObject() {
+    @ExtendWith(ApiExtensions.class)
+    void updatePetObject() {
+
+        Injector injector = Guice.createInjector(new GuiceModule());
+        petRestClient = injector.getInstance(PetRestClient.class);
+
         Tag tag = Tag.builder().
                 name(faker.animal().name()).
                 id(faker.number().randomDigit()).
