@@ -6,6 +6,7 @@ import com.google.inject.Injector;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.ExtensionContext;
 import otus.dto.pet.PetDTO;
 import otus.dto.pet.Tag;
 import otus.extensions.ApiExtensions;
@@ -19,15 +20,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(ApiExtensions.class)
 public class PetTest {
-
     private final Faker faker = new Faker();
-
     @Inject
     private PetRestClient petRestClient;
 
     @Test
-    @ExtendWith(ApiExtensions.class)
-    void updatePetObject() {
+    public void updatePetObject(ExtensionContext extensionContext) {
 
         Injector injector = Guice.createInjector(new GuiceModule());
         petRestClient = injector.getInstance(PetRestClient.class);
