@@ -8,14 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import otus.dto.pet.PetDTO;
-import otus.dto.pet.Tag;
 import otus.extensions.ApiExtensions;
 import otus.extensions.ExtensionParameterResolver;
 import otus.modules.GuiceModule;
 import otus.services.PetRestClient;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,33 +26,31 @@ public class PetTest {
     @Test
     public void updatePetObject(ExtensionContext context) {
         ExtensionContext.Store store = context.getStore(ExtensionContext.Namespace.create(PetDTO.class));
-        String value = store.get("petID", String.class);
+        PetDTO createdPet = store.get("createdPet", PetDTO.class);
+//        Tag tag = Tag.builder().
+//                name(faker.animal().name()).
+//                id(faker.number().randomDigit()).
+//                build();
+//        List<Tag> tags = new ArrayList<>();
+//        tags.add(tag);
 
-        Tag tag = Tag.builder().
-                name(faker.animal().name()).
-                id(faker.number().randomDigit()).
-                build();
-        List<Tag> tags = new ArrayList<>();
-        tags.add(tag);
+//        List<String> photoUrls = new ArrayList<>();
+//        photoUrls.add(faker.letterify("******"));
 
-        List<String> photoUrls = new ArrayList<>();
-        photoUrls.add(faker.letterify("******"));
+//        PetDTO petDTO = PetDTO.builder().
+//                id(faker.number().randomDigit()).
+//                name("test_" + faker.gameOfThrones().dragon()).
+//                tags(tags).
+//                photoUrls(photoUrls).
+//                status("available").//TODO make a enum
+//                        build();
 
-        PetDTO petDTO = PetDTO.builder().
-                id(faker.number().randomDigit()).
-                name("test_" + faker.gameOfThrones().dragon()).
-                tags(tags).
-                photoUrls(photoUrls).
-                status("available").//TODO make a enum
-                        build();
-
-        petRestClient.create(petDTO);
+//        petRestClient.create(petDTO);
         String expectedName = "test_" + faker.gameOfThrones().dragon();
-        petDTO.setName(expectedName);
-        petRestClient.update(petDTO, 200);
-        PetDTO petUpdated = petRestClient.get(petDTO.getId());
+        createdPet.setName(expectedName);
+        petRestClient.update(createdPet, 200);
+        PetDTO petUpdated = petRestClient.get(createdPet.getId());
         assertThat(petUpdated.getName()).as("name wasn't successfully updated").isEqualTo(expectedName);
-
     }
 
 }
