@@ -27,25 +27,6 @@ public class PetTest {
     public void updatePetObject(ExtensionContext context) {
         ExtensionContext.Store store = context.getStore(ExtensionContext.Namespace.create(PetDTO.class));
         PetDTO createdPet = store.get("createdPet", PetDTO.class);
-//        Tag tag = Tag.builder().
-//                name(faker.animal().name()).
-//                id(faker.number().randomDigit()).
-//                build();
-//        List<Tag> tags = new ArrayList<>();
-//        tags.add(tag);
-
-//        List<String> photoUrls = new ArrayList<>();
-//        photoUrls.add(faker.letterify("******"));
-
-//        PetDTO petDTO = PetDTO.builder().
-//                id(faker.number().randomDigit()).
-//                name("test_" + faker.gameOfThrones().dragon()).
-//                tags(tags).
-//                photoUrls(photoUrls).
-//                status("available").//TODO make a enum
-//                        build();
-
-//        petRestClient.create(petDTO);
         String expectedName = "test_" + faker.gameOfThrones().dragon();
         createdPet.setName(expectedName);
         petRestClient.update(createdPet, 200);
