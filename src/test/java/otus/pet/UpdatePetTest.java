@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(ApiExtensions.class)
 @ExtendWith(ExtensionParameterResolver.class)
-public class PetTest {
+public class UpdatePetTest {
 
     private final Injector injector = Guice.createInjector(new GuiceModule());
     @Inject
@@ -40,7 +40,7 @@ public class PetTest {
     }
 
     /**
-     * Check impossibility of updating pet object with incorrect data
+     * Check impossibility of updating pet with incorrect data
      */
     @Test
     public void updatePetObjectWithIncorrectData(ExtensionContext context) {
