@@ -51,8 +51,9 @@ public class ApiExtensions implements AfterEachCallback, BeforeEachCallback {
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
         ExtensionContext.Store store = context.getStore(ExtensionContext.Namespace.create(PetDTO.class));
+        PetDTO createdPet = store.get("createdPet", PetDTO.class);
         store.remove("createdPet");
+        petRestClient.delete(createdPet.getId());
     }
-
 
 }

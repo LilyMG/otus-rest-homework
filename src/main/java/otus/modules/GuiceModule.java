@@ -13,9 +13,9 @@ public class GuiceModule extends AbstractModule {
 //        // Bind other classes or interfaces if needed
 //    }
 
-    @Provides
-    @Singleton
-    public PetRestClient providePetRestClient() {
-        return new PetRestClient();
-    }
+//    @Provides
+//    @Singleton
+//    public PetRestClient providePetRestClient() {
+//        return new PetRestClient();
+//    }
 }
