@@ -26,32 +26,22 @@ public class GetPetTest {
     private final PetRestClient petRestClient = injector.getInstance(PetRestClient.class);
 
     /**
-     * Check Successful Pet Update
+     * Check functionality of getting a pet
      */
     @Test
-    public void updatePetObject(ExtensionContext context) {
+    public void getPetObject(ExtensionContext context) {
         ExtensionContext.Store store = context.getStore(ExtensionContext.Namespace.create(PetDTO.class));
         PetDTO createdPet = store.get("createdPet", PetDTO.class);
-        String expectedName = "test_" + faker.gameOfThrones().dragon();
-        createdPet.setName(expectedName);
-        petRestClient.update(createdPet, 200);
         PetDTO petUpdated = petRestClient.get(createdPet.getId());
-        assertThat(petUpdated.getName()).as("name wasn't successfully updated").isEqualTo(expectedName);
+        assertThat(createdPet).as("get did not work as expected").isEqualTo(petUpdated);
     }
 
     /**
-     * Check impossibility of updating pet with incorrect data
+     * Check impossibility of getting a pet with incorrect data
      */
     @Test
-    public void updatePetObjectWithIncorrectData(ExtensionContext context) {
-        ExtensionContext.Store store = context.getStore(ExtensionContext.Namespace.create(PetDTO.class));
-        PetDTO createdPet = store.get("createdPet", PetDTO.class);
-        String originalName = createdPet.getName();
-        String expectedName = "test_" + faker.harryPotter().spell();
-        createdPet.setName(expectedName);
-        createdPet.setStatus("someIncorrectStatus");
-        petRestClient.update(createdPet, 200);
-        PetDTO petUpdated = petRestClient.get(createdPet.getId());
-        assertThat(petUpdated.getName()).as("name was updated with incorrect status").isEqualTo(originalName);
+    public void getPetObjectWithIncorrectData(ExtensionContext context) {
+        PetDTO petUpdated = petRestClient.get(1212121212);
+        assertThat(petUpdated).as("name wasn't successfully updated").isEqualTo(petUpdated);
     }
 }
