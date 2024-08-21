@@ -13,23 +13,28 @@ public class PetRestClient extends AbsBaseSpecs {
         requestSpecification.basePath("/pet");
     }
 
-    public void create(PetDTO petDTO) {
+    public PetDTO create(PetDTO petDTO, int expectedStatus) {
         Gson gson = new Gson();
-        requestSpecification.
+        Number id = requestSpecification.
                 when().
                 header("accept", "application/json").
                 header("Content-Type", "application/json").
                 body(gson.toJson(petDTO)).
                 post().
                 then().
-                statusCode(200).
-                log().all();
+                statusCode(expectedStatus).
+                log().all().extract().path("id");
+        petDTO.setId(id.intValue());
+        return petDTO;
     }
 
-
     public void update(PetDTO petDTO, int expectedStatus) {
+        Gson gson = new Gson();
         requestSpecification.
                 when().
+                header("accept", "application/json").
+                header("Content-Type", "application/json").
+                body(gson.toJson(petDTO)).
                 log().all().
                 put("/").
                 then().
@@ -37,16 +42,25 @@ public class PetRestClient extends AbsBaseSpecs {
                 log().all();
     }
 
-
-    public PetDTO get(int id) {
+    public PetDTO get(long id, int expectedStatus) {
         return requestSpecification.
                 when().
                 log().all().
                 get("/" + id).
                 then().
-                statusCode(200).
+                statusCode(expectedStatus).
                 log().all().
                 extract().body().as(PetDTO.class);
+    }
+
+    public void delete(long id, int expectedStatus) {
+        requestSpecification.
+                when().
+                log().all().
+                delete("/" + id).
+                then().
+                statusCode(expectedStatus).
+                log().all();
     }
 
 }

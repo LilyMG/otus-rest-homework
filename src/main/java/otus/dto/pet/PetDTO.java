@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PetDTO {
-    private int id;
+    private long id;
     private Category category;
     private String name;
     private List<String> photoUrls;
