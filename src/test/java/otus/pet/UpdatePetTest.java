@@ -50,7 +50,7 @@ public class UpdatePetTest {
         String expectedName = "test_" + faker.harryPotter().spell();
         createdPet.setName(expectedName);
         createdPet.setStatus("someIncorrectStatus");
-        petRestClient.update(createdPet, 200);
+        petRestClient.update(createdPet, 400);
         PetDTO petUpdated = petRestClient.get(createdPet.getId(), 200);
         assertThat(petUpdated.getName()).as("name was updated with incorrect status").isEqualTo(originalName);
     }

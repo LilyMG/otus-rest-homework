@@ -41,7 +41,7 @@ public class ApiExtensions implements AfterEachCallback, BeforeEachCallback {
                 photoUrls(photoUrls).
                 status("available").//TODO make a enum
                         build();
-        petDTO = petRestClient.create(petDTO);
+        petDTO = petRestClient.create(petDTO, 200);
 
         ExtensionContext.Store store = context.getStore(ExtensionContext.Namespace.create(PetDTO.class));
         store.put("createdPet", petDTO);
@@ -53,7 +53,7 @@ public class ApiExtensions implements AfterEachCallback, BeforeEachCallback {
         ExtensionContext.Store store = context.getStore(ExtensionContext.Namespace.create(PetDTO.class));
         PetDTO createdPet = store.get("createdPet", PetDTO.class);
         store.remove("createdPet");
-        petRestClient.delete(createdPet.getId());
+        petRestClient.delete(createdPet.getId(), 200);
     }
 
 }
