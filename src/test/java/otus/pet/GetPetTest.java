@@ -40,7 +40,7 @@ public class GetPetTest {
      * Check impossibility of getting a pet with incorrect data
      */
     @Test
-    public void getPetObjectWithIncorrectData(ExtensionContext context) {
+    public void getPetObjectWithIncorrectData() {
         PetDTO petUpdated = petRestClient.get(1212121212);
         assertThat(petUpdated).as("name wasn't successfully updated").isEqualTo(petUpdated);
     }
