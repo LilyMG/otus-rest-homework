@@ -42,6 +42,6 @@ public class GetPetTest {
     @Test
     public void getPetObjectWithIncorrectData() {
         PetDTO petUpdated = petRestClient.get(1212121212, 404);
-        assertThat(petUpdated).as("name wasn't successfully updated").isEqualTo(petUpdated);
+        assertThat(petUpdated.getId()).as("there was a pet under non existing pet").isEqualTo(0);
     }
 }
