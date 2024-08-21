@@ -42,13 +42,13 @@ public class PetRestClient extends AbsBaseSpecs {
                 log().all();
     }
 
-    public PetDTO get(long id) {
+    public PetDTO get(long id, int expectedStatus) {
         return requestSpecification.
                 when().
                 log().all().
                 get("/" + id).
                 then().
-                statusCode(200).
+                statusCode(expectedStatus).
                 log().all().
                 extract().body().as(PetDTO.class);
     }

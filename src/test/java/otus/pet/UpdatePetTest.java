@@ -35,7 +35,7 @@ public class UpdatePetTest {
         String expectedName = "test_" + faker.gameOfThrones().dragon();
         createdPet.setName(expectedName);
         petRestClient.update(createdPet, 200);
-        PetDTO petUpdated = petRestClient.get(createdPet.getId());
+        PetDTO petUpdated = petRestClient.get(createdPet.getId(), 200);
         assertThat(petUpdated.getName()).as("name wasn't successfully updated").isEqualTo(expectedName);
     }
 
@@ -51,7 +51,7 @@ public class UpdatePetTest {
         createdPet.setName(expectedName);
         createdPet.setStatus("someIncorrectStatus");
         petRestClient.update(createdPet, 200);
-        PetDTO petUpdated = petRestClient.get(createdPet.getId());
+        PetDTO petUpdated = petRestClient.get(createdPet.getId(), 200);
         assertThat(petUpdated.getName()).as("name was updated with incorrect status").isEqualTo(originalName);
     }
 }

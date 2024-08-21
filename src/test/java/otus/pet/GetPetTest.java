@@ -32,7 +32,7 @@ public class GetPetTest {
     public void getPetObject(ExtensionContext context) {
         ExtensionContext.Store store = context.getStore(ExtensionContext.Namespace.create(PetDTO.class));
         PetDTO createdPet = store.get("createdPet", PetDTO.class);
-        PetDTO petUpdated = petRestClient.get(createdPet.getId());
+        PetDTO petUpdated = petRestClient.get(createdPet.getId(), 200);
         assertThat(createdPet).as("get did not work as expected").isEqualTo(petUpdated);
     }
 
@@ -41,7 +41,7 @@ public class GetPetTest {
      */
     @Test
     public void getPetObjectWithIncorrectData() {
-        PetDTO petUpdated = petRestClient.get(1212121212);
+        PetDTO petUpdated = petRestClient.get(1212121212, 404);
         assertThat(petUpdated).as("name wasn't successfully updated").isEqualTo(petUpdated);
     }
 }
