@@ -11,7 +11,6 @@ public class ExtensionParameterResolver  implements ParameterResolver {
     public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
             throws ParameterResolutionException {
         return  parameterContext.getParameter().getType() == ExtensionContext.class;
-        // Parameter support logic
     }
 
     @Override

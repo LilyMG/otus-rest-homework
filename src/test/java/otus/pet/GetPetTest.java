@@ -21,8 +21,6 @@ public class GetPetTest {
 
     private final Injector injector = Guice.createInjector(new GuiceModule());
     @Inject
-    private final Faker faker = injector.getInstance(Faker.class);
-    @Inject
     private final PetRestClient petRestClient = injector.getInstance(PetRestClient.class);
 
     /**
