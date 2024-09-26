@@ -15,8 +15,7 @@ import otus.services.PetRestClient;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ExtendWith(ApiExtensions.class)
-@ExtendWith(ExtensionParameterResolver.class)
+@ExtendWith({ApiExtensions.class, ExtensionParameterResolver.class})
 public class GetPetTest {
 
     private final Injector injector = Guice.createInjector(new GuiceModule());
